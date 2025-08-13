@@ -9,7 +9,9 @@
 }
 
 body {
-	background-color: var(--bg-color);
-	display: flex;
-	justify-content: center;
+	height: 100vh;
+	background-image: url("assets/bg-2.jpg");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
 }
