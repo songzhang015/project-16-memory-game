@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import "../styles/Game.css";
-import "../styles/Card.css";
+import Card from "./Card";
 
-function Game() {
+function Game({ setGameStatus, score, setScore, highScore }) {
 	const allCharacters = [
 		{ id: 1, name: "Iron Man" },
 		{ id: 2, name: "Captain America" },
@@ -45,44 +45,62 @@ function Game() {
 		shuffle(allCharacters).slice(0, 10)
 	);
 	const [chosen, setChosen] = useState([]);
-	const [currentlyShown, setCurrentlyShown] = useState([]);
+	const [currentlyShown, setCurrentlyShown] = useState(nonChosen.slice(0, 5));
+
+	function handleSelection(character) {
+		if (chosen.some((c) => c.id === character.id)) {
+			alert("You already chose this!");
+			setGameStatus("lose");
+			return;
+		}
+
+		// Update score
+		setScore(score + 1);
+
+		// Create a copy of the updated lists to work with
+		const newChosen = [...chosen, character];
+		const newNonChosen = [...nonChosen.filter((c) => c.id !== character.id)];
+
+		if (newNonChosen.length === 0) {
+			alert("You win!");
+			setGameStatus("win");
+			return;
+		}
+
+		// Shuffle and grab cards from Chosen and Non Chosen lists
+		const shuffledNonChosen = shuffle(newNonChosen);
+		const firstCard = shuffledNonChosen[0];
+
+		const pool = [...newChosen, ...shuffledNonChosen.slice(1)];
+
+		const otherCards = shuffle(pool).slice(0, 4);
+		setCurrentlyShown(shuffle([firstCard, ...otherCards]));
+
+		// Update Chosen and Non Chosen lists
+		setChosen(newChosen);
+		setNonChosen(newNonChosen);
+	}
 
 	return (
 		<div className="game">
 			<div className="scoreboard">
 				<p>
-					Score: <span>0</span>
+					Score: <span>{score}</span>
 				</p>
 				<p>
-					High Score: <span>0</span>
+					High Score: <span>{highScore}</span>
 				</p>
 			</div>
 
 			<div className="cards">
-				<div className="card">
-					<div className="card-img"></div>
-					<p className="card-name">Card Name</p>
-				</div>
-
-				<div className="card">
-					<div className="card-img"></div>
-					<p className="card-name">Card Name</p>
-				</div>
-
-				<div className="card">
-					<div className="card-img"></div>
-					<p className="card-name">Card Name</p>
-				</div>
-
-				<div className="card">
-					<div className="card-img"></div>
-					<p className="card-name">Card Name</p>
-				</div>
-
-				<div className="card">
-					<div className="card-img"></div>
-					<p className="card-name">Card Name</p>
-				</div>
+				{currentlyShown.map((character) => (
+					<Card
+						key={character.id}
+						img=""
+						name={character.name}
+						handleClick={() => handleSelection(character)}
+					/>
+				))}
 			</div>
 
 			<p className="round">1 / 10</p>

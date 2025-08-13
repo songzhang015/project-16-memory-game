@@ -18,6 +18,7 @@ function App() {
 			{gameStatus === "playing" ? (
 				<Game
 					setGameStatus={setGameStatus}
+					score={score}
 					setScore={setScore}
 					highScore={highScore}
 				/>

@@ -40,12 +40,7 @@
 .round {
 	font-weight: bold;
 	font-size: 2rem;
-	transition: transform 0.3s;
 	padding: 0.5rem;
-}
-
-.round:hover {
-	transform: scale(1.1);
 }
 
 .msg-container {
