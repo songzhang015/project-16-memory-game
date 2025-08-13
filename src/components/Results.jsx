@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import "./App.css";
+import "../styles/Results.css";
 
 function Results() {
-	return <div className="results"></div>;
+	return <div className="results">Results</div>;
 }
 
 export default Results;
