@@ -1,26 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "../styles/Game.css";
 import Card from "./Card";
 
 function Game({ setGameStatus, score, setScore, highScore }) {
 	const allCharacters = [
-		{ id: 1, name: "Iron Man" },
-		{ id: 2, name: "Captain America" },
-		{ id: 3, name: "Thor" },
-		{ id: 4, name: "Hulk" },
-		{ id: 5, name: "Black Widow" },
-		{ id: 6, name: "Hawkeye" },
-		{ id: 7, name: "Loki" },
-		{ id: 8, name: "Bucky" },
-		{ id: 9, name: "Nick Fury" },
-		{ id: 10, name: "Starlord" },
-		{ id: 11, name: "Rocket Raccoon" },
-		{ id: 12, name: "Doctor Strange" },
-		{ id: 13, name: "Scarlet Witch" },
-		{ id: 14, name: "Vision" },
-		{ id: 15, name: "Ultron" },
-		{ id: 16, name: "Black Panther" },
-		{ id: 17, name: "Spider-Man" },
+		{ id: 1, name: "Iron Man", img: "/characters/iron-man.png" },
+		{ id: 2, name: "Captain America", img: "/characters/captain-america.png" },
+		{ id: 3, name: "Thor", img: "/characters/thor.png" },
+		{ id: 4, name: "Hulk", img: "/characters/hulk.png" },
+		{ id: 5, name: "Black Widow", img: "/characters/black-widow.png" },
+		{ id: 6, name: "Hawkeye", img: "/characters/hawkeye.png" },
+		{ id: 7, name: "Loki", img: "/characters/loki.png" },
+		{ id: 8, name: "Bucky", img: "/characters/bucky.png" },
+		{ id: 9, name: "Nick Fury", img: "/characters/nick-fury.png" },
+		{ id: 10, name: "Starlord", img: "/characters/starlord.png" },
+		{ id: 11, name: "Rocket Raccoon", img: "/characters/rocket-raccoon.png" },
+		{ id: 12, name: "Doctor Strange", img: "/characters/doctor-strange.png" },
+		{ id: 13, name: "Scarlet Witch", img: "/characters/scarlet-witch.png" },
+		{ id: 14, name: "Vision", img: "/characters/vision.png" },
+		{ id: 15, name: "Ultron", img: "/characters/ultron.png" },
+		{ id: 16, name: "Black Panther", img: "/characters/black-panther.png" },
+		{ id: 17, name: "Spider-Man", img: "/characters/spider-man.png" },
 		{ id: 18, name: "Antman" },
 		{ id: 19, name: "Hela" },
 		{ id: 20, name: "Captain Marvel" },
@@ -96,16 +96,19 @@ function Game({ setGameStatus, score, setScore, highScore }) {
 				{currentlyShown.map((character) => (
 					<Card
 						key={character.id}
-						img=""
+						img={character.img}
 						name={character.name}
 						handleClick={() => handleSelection(character)}
 					/>
 				))}
 			</div>
 
-			<p className="round">1 / 10</p>
+			<p className="round">{score + 1} / 10</p>
 
-			<div className="msg-container">
+			<div
+				className="msg-container"
+				style={{ visibility: score > 0 ? "hidden" : "visible" }}
+			>
 				<p className="msg">Select a card.</p>
 				<p className="msg">Avoid choosing the same card twice!</p>
 			</div>
