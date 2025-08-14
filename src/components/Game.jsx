@@ -21,14 +21,18 @@ function Game({ setGameStatus, score, setScore, highScore }) {
 		{ id: 15, name: "Ultron", img: "/characters/ultron.png" },
 		{ id: 16, name: "Black Panther", img: "/characters/black-panther.png" },
 		{ id: 17, name: "Spider-Man", img: "/characters/spider-man.png" },
-		{ id: 18, name: "Antman" },
-		{ id: 19, name: "Hela" },
-		{ id: 20, name: "Captain Marvel" },
-		{ id: 21, name: "Thanos" },
-		{ id: 22, name: "Shang-Chi" },
-		{ id: 23, name: "Moon Knight" },
-		{ id: 24, name: "Mister Fantastic" },
-		{ id: 25, name: "Galactus" },
+		{ id: 18, name: "Antman", img: "/characters/antman.png" },
+		{ id: 19, name: "Hela", img: "/characters/hela.png" },
+		{ id: 20, name: "Captain Marvel", img: "/characters/captain-marvel.png" },
+		{ id: 21, name: "Thanos", img: "/characters/thanos.png" },
+		{ id: 22, name: "Shang-Chi", img: "/characters/shang-chi.png" },
+		{ id: 23, name: "Moon Knight", img: "/characters/moon-knight.png" },
+		{
+			id: 24,
+			name: "Mister Fantastic",
+			img: "/characters/mister-fantastic.png",
+		},
+		{ id: 25, name: "Galactus", img: "/characters/galactus.png" },
 	];
 
 	// Helper function to help shuffle arrays
