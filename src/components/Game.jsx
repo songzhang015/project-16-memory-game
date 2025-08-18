@@ -50,39 +50,44 @@ function Game({ setGameStatus, score, setScore, highScore }) {
 	);
 	const [chosen, setChosen] = useState([]);
 	const [currentlyShown, setCurrentlyShown] = useState(nonChosen.slice(0, 5));
+	const [flipping, setFlipping] = useState(false);
 
 	function handleSelection(character) {
 		if (chosen.some((c) => c.id === character.id)) {
-			alert("You already chose this!");
 			setGameStatus("lose");
 			return;
 		}
 
 		// Update score
-		setScore(score + 1);
+		setScore((prevScore) => prevScore + 1);
 
-		// Create a copy of the updated lists to work with
-		const newChosen = [...chosen, character];
-		const newNonChosen = [...nonChosen.filter((c) => c.id !== character.id)];
+		setFlipping(true);
 
-		if (newNonChosen.length === 0) {
-			alert("You win!");
-			setGameStatus("win");
-			return;
-		}
+		setTimeout(() => {
+			// Create a copy of the updated lists to work with
+			const newChosen = [...chosen, character];
+			const newNonChosen = [...nonChosen.filter((c) => c.id !== character.id)];
 
-		// Shuffle and grab cards from Chosen and Non Chosen lists
-		const shuffledNonChosen = shuffle(newNonChosen);
-		const firstCard = shuffledNonChosen[0];
+			if (newNonChosen.length === 0) {
+				setGameStatus("win");
+				return;
+			}
 
-		const pool = [...newChosen, ...shuffledNonChosen.slice(1)];
+			// Shuffle and grab cards from Chosen and Non Chosen lists
+			const shuffledNonChosen = shuffle(newNonChosen);
+			const firstCard = shuffledNonChosen[0];
 
-		const otherCards = shuffle(pool).slice(0, 4);
-		setCurrentlyShown(shuffle([firstCard, ...otherCards]));
+			const pool = [...newChosen, ...shuffledNonChosen.slice(1)];
 
-		// Update Chosen and Non Chosen lists
-		setChosen(newChosen);
-		setNonChosen(newNonChosen);
+			const otherCards = shuffle(pool).slice(0, 4);
+			setCurrentlyShown(shuffle([firstCard, ...otherCards]));
+
+			// Update Chosen and Non Chosen lists
+			setChosen(newChosen);
+			setNonChosen(newNonChosen);
+
+			setFlipping(false);
+		}, 600);
 	}
 
 	return (
@@ -97,12 +102,13 @@ function Game({ setGameStatus, score, setScore, highScore }) {
 			</div>
 
 			<div className="cards">
-				{currentlyShown.map((character) => (
+				{currentlyShown.map((character, index) => (
 					<Card
-						key={character.id}
+						key={index}
 						img={character.img}
 						name={character.name}
-						handleClick={() => handleSelection(character)}
+						handleClick={() => !flipping && handleSelection(character)}
+						flipped={flipping}
 					/>
 				))}
 			</div>

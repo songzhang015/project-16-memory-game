@@ -41,6 +41,7 @@
 	font-weight: bold;
 	font-size: 2rem;
 	padding: 0.5rem;
+	margin-top: 18rem;
 }
 
 .msg-container {
@@ -54,4 +55,20 @@
 
 .msg {
 	font-size: 1.75rem;
+}
+
+@media (max-width: 1920px) {
+	.scoreboard {
+		top: 2rem;
+		right: 2rem;
+		font-size: 1.5rem;
+	}
+}
+
+@media (max-width: 1600px) {
+	.scoreboard {
+		top: 1rem;
+		right: 1rem;
+		font-size: 1.25rem;
+	}
 }
